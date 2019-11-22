@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from store_manage.views import StoreListView
+from store_manage.views import StoreListView, StoreCreate, StoreUpdate, StoreDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('storelist/<search_text>/', StoreList.as_view()),
     path('storelist/', StoreListView.as_view()),
+    path('detail/<slug>', StoreDetailView.as_view(), name='detail'),
 
 ]

@@ -2,21 +2,32 @@ from django.db.models import Q
 from django.shortcuts import render
 
 # Create your views here.
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from store_manage.models import StoreInformation
 
 
 class StoreListView(ListView):
-    template_name = 'storelist.html'
+    template_name = 'store_manager/storelist.html'
     queryset = StoreInformation.objects.order_by('-Opening_date')
 
-    # def get_queryset(self):
-    #     # self.publisher = get_object_or_404(Publisher, name=self.kwargs['publisher'])
-    #     search_text = self.kwargs['search_text']
-    #     # return StoreInformation.objects.filter(Q(name__contains=search_text) | Q(code__contains=search_text))
-    #     return StoreInformation.objects.filter(Q(name__contains=search_text) | Q(code__contains=search_text))
 
 class StoreDetailView(DetailView):
     model = StoreInformation
-    template_name = 'detail.html'
+    template_name = 'store_manager/detail.html'
+    slug_field = 'code'
+    # slug_url_kwarg = 'slug'
+
+
+class StoreCreate(CreateView):
+    model = StoreInformation
+    template_name = 'store_manager/store_create_form.html'
+    fields = ['name']
+
+
+class StoreUpdate(UpdateView):
+    model = StoreInformation
+    slug_field = 'code'
+    slug_url_kwarg = 'slug'
+    fields = ['name', 'code', 'brand', 'address', 'IP', 'ap', 'contacts']
+    template_name = "store_manager/detail.html"

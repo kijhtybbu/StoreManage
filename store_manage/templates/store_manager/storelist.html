@@ -30,7 +30,7 @@
         {% for store in object_list %}
             <tr>
                 <td width="60">{{ store.status }}</td>
-                <td width="80">{{ store.code }}</td>
+                <td width="80"><a href="{% url 'detail' store.code  %}">{{ store.code }}</a></td>
                 <td>{{ store.name }}</td>
                 <td>{{ store.engineering_head }}</td>
                 <td>{{ store.DateField }}</td>
@@ -62,8 +62,8 @@ $(document).ready( function () {
                 "targets": 0,
                 "searchable":false,
                 render: function (data,type,row,meta) {
-                        var node = "<label ";
-                        if (data === "4") {
+                    let node = "<label ";
+                    if (data === "4") {
                             node += "style='color:red;'>闭店"
                         } else if (data === "2") {
                             node += "style='color:green;'>正常"
