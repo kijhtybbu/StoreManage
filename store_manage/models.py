@@ -21,7 +21,7 @@ class StoreInformation(models.Model):
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # 品牌
-    brand = models.CharField(max_length=10,choices=BRAND_CHOICES ,blank=False, verbose_name="品牌")
+    brand = models.CharField(max_length=10,choices=BRAND_CHOICES, blank=False, verbose_name="品牌")
     # 店铺编号
     code = models.CharField(max_length=10, null=True, blank=True, verbose_name="店铺编号")
     # 店铺名称
@@ -56,3 +56,9 @@ class StoreInformation(models.Model):
         verbose_name_plural = '店铺'
         # 末尾加s
         # verbose_name='标签'
+
+
+class StoreComment(models.Model):
+    store = models.ForeignKey(StoreInformation, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+    date = models.DateTimeField(verbose_name="备注日期")

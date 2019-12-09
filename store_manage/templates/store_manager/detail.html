@@ -12,40 +12,42 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h3>{{ storeinformation.name }}({{ storeinformation.code }})</h3>
-        </div>
-    </div>
+    <div class="page-header">
+  <h1>{{ storeinformation.name }}{{ storeinformation.code }}</h1>
+</div>
     <div class="row">
         <div class="col-md-6">
-            <dl>
-                <dt>品牌</dt>
-                <dd>{{ storeinformation.brand }}</dd>
-                <dt>IP</dt>
-                <dd>{{ storeinformation.ip }}</dd>
-                <dt>AP 数量</dt>
-                <dd>{{ storeinformation.ap }}</dd>
-                <dt>联系人</dt>
-                <dd>{{ storeinformation.contacts }}</dd>
-                <dt>设备到店日期</dt>
-                <dd>{{ storeinformation.equipment_arrival_date }}</dd>
-                <dt>工程完工日期</dt>
-                <dd>{{ storeinformation.completion_date }}</dd>
-                <dt>预计安装日期</dt>
-                <dd>{{ storeinformation.expected_installation_date }}</dd>
-                <dt>开业日期</dt>
-                <dd>{{ storeinformation.Opening_date }}</dd>
-                <dt>工程部负责人</dt>
-                <dd>{{ storeinformation.engineering_head }}</dd>
-                <dt>防火墙类型</dt>
-                <dd>{{ storeinformation.firewall_type }}</dd>
-                <dt>地址</dt>
-                <dd>{{ storeinformation.address }}</dd>
-            </dl>
-        </div>
-        <div class="col-md-6">
-            fsdaf
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">详情</h3>
+                </div>
+                <div class="panel-body">
+                    <dl>
+                        <dt>品牌</dt>
+                        <dd>{{ storeinformation.brand }}</dd>
+                        <dt>IP</dt>
+                        <dd>{{ storeinformation.ip }}</dd>
+                        <dt>AP 数量</dt>
+                        <dd>{{ storeinformation.ap }}</dd>
+                        <dt>联系人</dt>
+                        <dd>{{ storeinformation.contacts }}</dd>
+                        <dt>设备到店日期</dt>
+                        <dd>{{ storeinformation.equipment_arrival_date }}</dd>
+                        <dt>工程完工日期</dt>
+                        <dd>{{ storeinformation.completion_date }}</dd>
+                        <dt>预计安装日期</dt>
+                        <dd>{{ storeinformation.expected_installation_date }}</dd>
+                        <dt>开业日期</dt>
+                        <dd>{{ storeinformation.Opening_date }}</dd>
+                        <dt>工程部负责人</dt>
+                        <dd>{{ storeinformation.engineering_head }}</dd>
+                        <dt>防火墙类型</dt>
+                        <dd>{{ storeinformation.firewall_type }}</dd>
+                        <dt>地址</dt>
+                        <dd>{{ storeinformation.address }}</dd>
+                    </dl>
+                </div>
+            </div>
         </div>
     </div>
 </div>
