@@ -4,6 +4,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
+from store_manage.forms import CommentForm
 from store_manage.models import StoreInformation
 
 
@@ -17,6 +18,11 @@ class StoreDetailView(DetailView):
     template_name = 'store_manager/detail.html'
     slug_field = 'code'
     # slug_url_kwarg = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment'] = CommentForm()
+        return context
 
 
 class StoreCreate(CreateView):

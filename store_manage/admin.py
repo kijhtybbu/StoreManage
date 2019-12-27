@@ -2,7 +2,12 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import StoreInformation
+from .models import StoreInformation, StoreComment
+
+
+class StoreCommentInline(admin.StackedInline):
+    model=StoreComment
+    extra = 2
 
 
 class StoreInformationAdmin(admin.ModelAdmin):
@@ -27,6 +32,7 @@ class StoreInformationAdmin(admin.ModelAdmin):
     # list_editable = ['machine_room_id', 'temperature']
     list_filter = ('status',)  # 过滤器
     search_fields = ('code', 'name')  # 搜索字段
+    inlines = [StoreCommentInline]
 
 
 admin.site.site_header = '店铺管理'

@@ -60,5 +60,5 @@ class StoreInformation(models.Model):
 
 class StoreComment(models.Model):
     store = models.ForeignKey(StoreInformation, on_delete=models.CASCADE)
-    content = models.CharField(max_length=200)
-    date = models.DateTimeField(verbose_name="备注日期")
+    content = models.TextField(max_length=300)
+    date = models.DateTimeField(auto_now_add=True, verbose_name="备注日期")
