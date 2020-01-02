@@ -52,11 +52,11 @@
         {% for comment in storeinformation.storecomment_set.all %}
             <li>{{ comment.content }} -- {{ comment.date }} </li>
         {% endfor %}
-    <form action="{% url 'detail' storeinformation.code %}" method="post">
-    {% csrf_token %}
-    {{ comment }}
-    <input type="submit" value="Submit">
-</form>
+        <form action="{% url 'detail' storeinformation.code %}" method="post">
+            {% csrf_token %}
+            {{ comment }}
+            <input type="submit" value="Submit">
+        </form>
     </div>
 
 </div>
