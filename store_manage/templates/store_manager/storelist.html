@@ -18,10 +18,10 @@
             <th scope="col">状态</th>
             <th scope="col">编号</th>
             <th scope="col">店名</th>
-            <th scope="col">工程部负责人</th>
             <th scope="col">安装日期</th>
             <th scope="col">开业日期</th>
             <th scope="col">网段</th>
+            <th scope="col">工程部</th>
             <th scope="col">联系人</th>
 
         </tr>
@@ -29,13 +29,23 @@
         <tbody>
         {% for store in object_list %}
             <tr>
-                <td width="60">{{ store.status }}</td>
+                <td width="60">
+                    {% if store.status == "4" %}
+                        <label style='color:red'>闭店</label>
+                    {% elif store.status == "2" %}
+                        <label style='color:green'>正常</label>
+                    {% elif store.status == "3" %}
+                        <label style='color:sandybrown'>护肤</label>
+                    {% elif store.status == "1" %}
+                        <label style='color:darkorange'>筹备</label>
+                    {% endif %}
+                </td>
                 <td width="80"><a href="{% url 'detail' store.code %}">{{ store.code }}</a></td>
-                <td>{{ store.name }}</td>
-                <td>{{ store.engineering_head }}</td>
+                <td><a target="_blank" href="{% url 'detail' store.code %}">{{ store.name }}</a></td>
                 <td>{{ store.DateField }}</td>
                 <td>{{ store.expected_installation_date }}</td>
                 <td>{{ store.ip }}</td>
+                <td>{{ store.engineering_head }}</td>
                 <td>{{ store.contacts }}</td>
             </tr>
         {% endfor %}
@@ -46,48 +56,5 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-<!-- DataTables CSS -->
-<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.css">
-<!-- DataTables -->
-<script type="text/javascript" charset="utf8" src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.js"></script>
-
-<script>
-    $(document).ready(function () {
-        $('#storelist').DataTable({
-            "stateSave": true,
-            "searchDelay": 100,
-            "caseInsensitive": false,
-            columnDefs: [
-                {
-                    "targets": 0,
-                    "searchable": false,
-                    render: function (data, type, row, meta) {
-                        let node = "<label ";
-                        if (data === "4") {
-                            node += "style='color:red;'>闭店"
-                        } else if (data === "2") {
-                            node += "style='color:green;'>正常"
-                        } else if (data === "3") {
-                            node += "style='color:green;'>护肤"
-                        } else {
-                            node += "style='color:#000;'>筹备"
-                        }
-                        node += "</label>";
-                        return node;
-                    }
-                },
-                {
-                    "targets": 1,
-                    "searchable": false,
-                },
-                {
-                    "targets": 2,
-                    "searchable": false,
-                },
-            ]
-        });
-
-    });
-</script>
 </body>
 </html>

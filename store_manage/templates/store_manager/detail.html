@@ -13,52 +13,40 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>{{ storeinformation.name }}{{ storeinformation.code }}</h1>
+        <h2>{{ storeinformation.name }}{{ storeinformation.code }}</h2>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">详情</h3>
-                </div>
-                <div class="panel-body">
-                    <dl>
-                        <dt>IP</dt>
-                        <dd>{{ storeinformation.ip }}</dd>
-                        <dt>AP 数量</dt>
-                        <dd>{{ storeinformation.ap }}</dd>
-                        <dt>联系人</dt>
-                        <dd>{{ storeinformation.contacts }}</dd>
-                        <dt>设备到店日期</dt>
-                        <dd>{{ storeinformation.equipment_arrival_date }}</dd>
-                        <dt>工程完工日期</dt>
-                        <dd>{{ storeinformation.completion_date }}</dd>
-                        <dt>预计安装日期</dt>
-                        <dd>{{ storeinformation.expected_installation_date }}</dd>
-                        <dt>开业日期</dt>
-                        <dd>{{ storeinformation.Opening_date }}</dd>
-                        <dt>工程部负责人</dt>
-                        <dd>{{ storeinformation.engineering_head }}</dd>
-                        <dt>防火墙类型</dt>
-                        <dd>{{ storeinformation.firewall_type }}</dd>
-                        <dt>地址</dt>
-                        <dd>{{ storeinformation.address }}</dd>
-                    </dl>
-                </div>
-            </div>
+        <div class="col-md-2">IP: {{ storeinformation.ip }}</div>
+        <div class="col-md-2">AP: {{ storeinformation.ap }}</div>
+        <div class="col-md-2">联系人: {{ storeinformation.contacts }}</div>
+        <div class="col-md-2">设备到店日期: {{ storeinformation.equipment_arrival_date }}</div>
+        <div class="col-md-2">工程完工日期: {{ storeinformation.completion_date }}</div>
+        <div class="col-md-2">预计安装日期: {{ storeinformation.completion_date }}</div>
+    </div>
+    <div class="row page-header">
+        <div class="col-md-2">开业日期: {{ storeinformation.Opening_date }}</div>
+        <div class="col-md-2">工程部: {{ storeinformation.engineering_head }}</div>
+        <div class="col-md-2">防火墙类型: {{ storeinformation.firewall_type }}</div>
+        <div class="col-md-2">地址: {{ storeinformation.address }}</div>
+    </div>
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-md-12">
+            {% for comment in storeinformation.storecomment_set.all %}
+                <li style="margin-bottom: 5px"> {{ comment.content }} --- {{ comment.date }}</li>
+            {% endfor %}
         </div>
     </div>
     <div class="row">
-        {% for comment in storeinformation.storecomment_set.all %}
-            <li>{{ comment.content }} -- {{ comment.date }} </li>
-        {% endfor %}
-        <form action="{% url 'detail' storeinformation.code %}" method="post">
-            {% csrf_token %}
-            {{ comment }}
-            <input type="submit" value="Submit">
-        </form>
+        <div class="col-md-4">
+            <form action="{% url 'detail' storeinformation.code %}" method="post">
+                {% csrf_token %}
+                <div style="margin-bottom: 5px">
+                    {{ comment }}
+                </div>
+                <input class="btn btn-default" type="submit" value="确认">
+            </form>
+        </div>
     </div>
-
 </div>
 </body>
 </html>

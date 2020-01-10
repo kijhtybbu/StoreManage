@@ -28,6 +28,9 @@ class StoreDetailView(View):
 
 
 class StoreDetail(FormView):
+    """
+    Post 数据处理保存
+    """
     form_class = CommentForm
 
     def form_valid(self, form):
