@@ -21,7 +21,7 @@ from store_manage.views import StoreListView, StoreCreate, StoreUpdate, StoreDet
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('storelist/<search_text>/', StoreList.as_view()),
-    path('storelist/', StoreListView.as_view()),
-    path('detail/<slug>', StoreDetailView.as_view(), name='detail'),
+    path('store/', StoreListView.as_view()),
+    path('store/<slug>', StoreDetailView.as_view(), name='detail'),
 
 ]

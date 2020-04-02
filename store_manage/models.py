@@ -21,7 +21,7 @@ class StoreInformation(models.Model):
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # 品牌
-    brand = models.CharField(max_length=10,choices=BRAND_CHOICES, blank=False, verbose_name="品牌")
+    brand = models.CharField(max_length=10, choices=BRAND_CHOICES, blank=False, verbose_name="品牌")
     # 店铺编号
     code = models.CharField(max_length=10, null=True, blank=True, verbose_name="店铺编号")
     # 店铺名称
@@ -45,7 +45,7 @@ class StoreInformation(models.Model):
     # 工程部负责人
     engineering_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="工程部负责人")
     # 防火墙类型
-    firewall_type = models.CharField(max_length=20,  blank=True, verbose_name="防火墙类型")
+    firewall_type = models.CharField(max_length=20, blank=True, verbose_name="防火墙类型")
     # 状态：1，筹备 2，正常 3，护肤 4，闭店
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, verbose_name="状态")
     # 备注
