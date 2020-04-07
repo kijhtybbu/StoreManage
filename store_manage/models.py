@@ -32,6 +32,8 @@ class StoreInformation(models.Model):
     ip = models.GenericIPAddressField(protocol='IPv4', null=True, blank=True, verbose_name="IP")
     # AP 数量
     ap = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name="AP 数量")
+    # 客用wifi
+    guest_wifi = models.BooleanField(default=False, verbose_name="客用wifi")
     # 联系人
     contacts = models.TextField(null=True, blank=True, verbose_name="联系人")
     # 设备到店日期

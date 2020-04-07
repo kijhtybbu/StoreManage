@@ -21,6 +21,7 @@
             <th scope="col" width="120em">安装日期</th>
             <th scope="col" width="120em">开业日期</th>
             <th scope="col" width="130em">网段</th>
+            <th scope="col" width="100em">客用wifi</th>
             <th scope="col">工程部</th>
             <th scope="col">联系人</th>
 
@@ -45,6 +46,11 @@
                 <td>{{ store.DateField }}</td>
                 <td>{{ store.expected_installation_date }}</td>
                 <td>{{ store.ip }}</td>
+                <td>
+                    {% if store.guest_wifi == 1 %}
+                        <label style='color:green'>有</label>
+                    {% endif %}
+                </td>
                 <td>{{ store.engineering_head }}</td>
                 <td>{{ store.contacts }}</td>
             </tr>

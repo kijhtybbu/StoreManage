@@ -13,7 +13,8 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h2>{{ storeinformation.name }}{{ storeinformation.code }}</h2>
+        <h2>{{ storeinformation.name }}{{ storeinformation.code }}
+            <a href="../admin/store_manage/storeinformation/{{storeinformation.id}}">管理</a></h2>
     </div>
     <div class="row">
         <div class="col-md-2">IP: {{ storeinformation.ip }}</div>
@@ -26,8 +27,12 @@
     <div class="row page-header">
         <div class="col-md-2">开业日期: {{ storeinformation.Opening_date }}</div>
         <div class="col-md-2">工程部: {{ storeinformation.engineering_head }}</div>
+        <div class="col-md-2">客用wifi: {{ storeinformation.guest_wifi }}</div>
         <div class="col-md-2">防火墙类型: {{ storeinformation.firewall_type }}</div>
         <div class="col-md-2">地址: {{ storeinformation.address }}</div>
+    </div>
+    <div class="row" style="background-color: beige">
+        <div class="col-md-12">{{ storeinformation.contacts }}</div>
     </div>
     <div class="row" style="margin-bottom: 10px">
         <div class="col-md-12">

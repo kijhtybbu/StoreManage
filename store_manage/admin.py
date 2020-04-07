@@ -19,7 +19,7 @@ class StoreInformationAdmin(admin.ModelAdmin):
               'engineering_head',
               'ip',
               'firewall_type',
-              'ap',
+              ('ap', 'guest_wifi'),
               'status',
               'ps')
     list_display = ('code', 'name', 'ip', 'engineering_head', 'status', 'Opening_date', 'equipment_arrival_date',)
