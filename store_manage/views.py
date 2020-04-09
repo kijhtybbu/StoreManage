@@ -14,7 +14,7 @@ from store_manage.models import StoreInformation, StoreComment
 
 class StoreListView(ListView):
     template_name = 'store_manager/storelist.html'
-    queryset = StoreInformation.objects.order_by('-Opening_date')
+    queryset = StoreInformation.objects.order_by('-modified_date')
 
 
 class StoreDetailView(View):
@@ -38,6 +38,7 @@ class StoreDetail(FormView):
         sc.content = form.cleaned_data['content']
         # sc.stor.store = form.cleaned_data['content']
         sc.store = StoreInformation.objects.get(code=self.kwargs.get('slug'))
+        sc.store.save()
         sc.save()
         # form.store_id = self.kwargs.get('slug')
         # form.save()

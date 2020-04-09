@@ -1,7 +1,6 @@
 import uuid
-
+from datetime import date, datetime, timezone
 from django.db import models
-from django.urls import reverse
 
 
 class StoreInformation(models.Model):
@@ -52,6 +51,13 @@ class StoreInformation(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, verbose_name="状态")
     # 备注
     ps = models.TextField(max_length=300, null=True, blank=True, verbose_name="备注")
+    # 修改时间
+    modified_date = models.DateTimeField(verbose_name="修改日期", auto_now=True)
+
+    @property
+    def is_date_new(self):
+        date_new = datetime.now(timezone.utc)
+        return (date_new - self.modified_date).days < 3
 
     class Meta:
         # 末尾不加s
