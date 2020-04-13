@@ -19,8 +19,9 @@ from django.urls import path
 from store_manage.views import StoreListView, StoreCreate, StoreUpdate, StoreDetailView
 
 urlpatterns = [
+    path('', StoreListView.as_view()),
     path('admin/', admin.site.urls),
-    path('store/', StoreListView.as_view()),
+    path('store/', StoreListView.as_view(), name='store'),
     path('store/<slug>', StoreDetailView.as_view(), name='detail'),
 
 ]

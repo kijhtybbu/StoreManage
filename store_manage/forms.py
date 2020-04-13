@@ -9,7 +9,7 @@ class CommentForm(ModelForm):
         model = StoreComment
         fields = ['content']
         labels = {
-            'content': '备注',
+            'content': '#',
         }
         widgets = {
             'content': Textarea(attrs={'class': 'form-control', 'cols': 80, 'rows': 5}),
