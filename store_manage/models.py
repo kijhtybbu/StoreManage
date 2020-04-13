@@ -43,6 +43,8 @@ class StoreInformation(models.Model):
     expected_installation_date = models.DateField(null=True, blank=True, verbose_name="预计安装日期")
     # 开店日期
     Opening_date = models.DateField(null=True, blank=True, verbose_name="开店日期")
+    # 闭店日期
+    closed_date = models.DateField(null=True, blank=True, verbose_name="闭店日期")
     # 工程部负责人
     engineering_head = models.CharField(max_length=100, null=True, blank=True, verbose_name="工程部负责人")
     # 防火墙类型

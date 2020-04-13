@@ -13,11 +13,16 @@
 <body>
 <div class="container">
     <div class="page-header">
-        <h3>{{ storeinformation.name }}{{ storeinformation.code }}
+        <h3><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>
+            {{ storeinformation.name }}{{ storeinformation.code }}
             <a href="../admin/store_manage/storeinformation/{{ storeinformation.id }}">管理</a></h3>
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
+            <div class="row bg-info" style="margin-bottom: 10px">
+                <div class="col-md-12"><span class="glyphicon glyphicon-info-sign"
+                                             aria-hidden="true"></span> {{ storeinformation.ps }}</div>
+            </div>
             <div class="row " style="margin-bottom: 10px">
                 <div class="col-md-3">IP: {{ storeinformation.ip }}</div>
                 <div class="col-md-3">AP: {{ storeinformation.ap }}</div>
@@ -26,7 +31,7 @@
             <div class="row" style="margin-bottom: 10px">
                 <div class="col-md-3">设备到店: {{ storeinformation.equipment_arrival_date|date:"Y/m/d" }}</div>
                 <div class="col-md-3">工程完工: {{ storeinformation.completion_date|date:"Y/m/d" }}</div>
-                <div class="col-md-3">预计安装: {{ storeinformation.completion_date|date:"Y/m/d" }}</div>
+                <div class="col-md-3">安装: {{ storeinformation.completion_date|date:"Y/m/d" }}</div>
                 <div class="col-md-3">开业: {{ storeinformation.Opening_date|date:"Y/m/d" }}</div>
             </div>
             <div class="row" style="margin-bottom: 10px">
@@ -35,11 +40,8 @@
                 <div class="col-md-3">防火墙: {{ storeinformation.firewall_type }}</div>
             </div>
             <div class="row " style="margin-bottom: 10px">
-                <div class="col-md-12">地址: {{ storeinformation.address }}</div>
-            </div>
-
-            <div class="row bg-info">
-                <div class="col-md-12"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> {{ storeinformation.ps }}</div>
+                <div class="col-md-3">闭店: {{ storeinformation.closed_date|date:"Y/m/d" }}</div>
+                <div class="col-md-8">地址: {{ storeinformation.address }}</div>
             </div>
         </div>
     </div>
@@ -48,7 +50,8 @@
         <div class="panel-body">
             <ul class="list-group">
                 {% for comment in storeinformation.storecomment_set.all %}
-                    <li class="list-group-item">{{ comment.content }} <span class="badge">{{ comment.date }}</span></li>
+                    <li class="list-group-item"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        {{ comment.content }} <span class="badge">{{ comment.date }}</span></li>
                 {% endfor %}
             </ul>
             <div class="row">

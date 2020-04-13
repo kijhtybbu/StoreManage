@@ -16,6 +16,7 @@ class StoreInformationAdmin(admin.ModelAdmin):
               'contacts',
               ('equipment_arrival_date', 'completion_date'),
               ('expected_installation_date', 'Opening_date'),
+              'closed_date',
               'engineering_head',
               'ip',
               'firewall_type',
