@@ -61,6 +61,12 @@ class StoreInformation(models.Model):
         date_new = datetime.now(timezone.utc)
         return (date_new - self.modified_date).days < 3
 
+    @property
+    def get_away_date(self):
+        """返回安装时间距离现在的天数"""
+        date_new = datetime.now(timezone.utc)
+        return (self.expected_installation_date - date_new).days
+
     class Meta:
         # 末尾不加s
         verbose_name_plural = '店铺'

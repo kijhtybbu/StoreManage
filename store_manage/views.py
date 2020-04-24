@@ -5,7 +5,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.urls import reverse
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
 from store_manage.forms import CommentForm
@@ -55,6 +55,7 @@ class StoreDetailDisplay(DetailView):
     model = StoreInformation
     template_name = 'store_manager/detail.html'
     slug_field = 'code'
+
     # slug_url_kwarg = 'slug'
 
     def get_context_data(self, **kwargs):
@@ -75,3 +76,12 @@ class StoreUpdate(UpdateView):
     slug_url_kwarg = 'slug'
     fields = ['name', 'code', 'brand', 'address', 'IP', 'ap', 'contacts']
     template_name = "store_manager/detail.html"
+
+
+class PopoverHtmlView(TemplateView):
+    template_name = "store_manager/popover.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['list_comment'] = StoreInformation.objects.get(code=kwargs['slug']).storecomment_set.all()[:3]
+        return context

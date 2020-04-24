@@ -43,12 +43,15 @@
                     {% endif %}
                 </td>
                 <td><a href="{% url 'detail' store.code %}">{{ store.code }}</a></td>
-                <td><a target="_blank" href="{% url 'detail' store.code %}">{{ store.name }}</a>
+                <td data-toggle="popover" data-trigger="hover" data-code="{{ store.code }}"
+                    title="Popover title">
+                    <a target="_blank" href="{% url 'detail' store.code %}">{{ store.name }}</a>
                     {% if store.is_date_new %}
-                    <img src="{% static 'store_manage/new.png' %}" alt="new" height="20em"/>
+                        <img src="{% static 'store_manage/new.png' %}" alt="new" height="20em"/>
                     {% endif %}
                 </td>
-                <td>{{ store.expected_installation_date|date:"Y/m/d" }}</td>
+                <td>{{ store.expected_installation_date|date:"Y/m/d" }}
+                    |{{ store.expected_installation_date|timeuntil }} </td>
                 <td>{{ store.Opening_date|date:"Y/m/d" }}</td>
                 <td>{{ store.ip }}</td>
                 <td>
@@ -67,5 +70,37 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            placement: 'auto right',
+            container: 'body',
+            template: '<div class="popover" style="max-width: 450px">' +
+                '<div class="arrow"></div><div class="popover-inner">' +
+                '<h3 class="popover-title"></h3><div class="popover-content">' +
+                '<p></p></div></div></div>',
+            content: function () {
+                $.ajax({
+                    url: 'popoverHtml/'+this.dataset["code"],
+                    dataType: 'html',
+                    success: function (html) {
+                        {#console.log(html)#}
+                        {#$('.popover-content').empty();#}
+
+                        //Fill in content with new AJAX data
+                        $('.popover-content').html(html);
+                        {#console.log($('.popover-content').html())#}
+                    }
+                })
+            }
+        })
+
+    })
+
+    function myFunction() {
+        return "Hello World!";
+    }
+</script>
 </body>
 </html>
