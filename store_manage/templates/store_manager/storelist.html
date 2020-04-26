@@ -19,7 +19,7 @@
             <th scope="col" width="60em">状态</th>
             <th scope="col" width="80em">编号</th>
             <th scope="col">店名</th>
-            <th scope="col" width="120em">安装日期</th>
+            <th scope="col" width="130em">安装日期</th>
             <th scope="col" width="120em">开业日期</th>
             <th scope="col" width="130em">网段</th>
             <th scope="col" width="100em">客用wifi</th>
@@ -39,19 +39,24 @@
                     {% elif store.status == "3" %}
                         <label style='color:sandybrown'>护肤</label>
                     {% elif store.status == "1" %}
-                        <label style='color:darkorange'>筹备</label>
+                        <label style='color:orange'>筹备</label>
                     {% endif %}
                 </td>
                 <td><a href="{% url 'detail' store.code %}">{{ store.code }}</a></td>
                 <td data-toggle="popover" data-trigger="hover" data-code="{{ store.code }}"
-                    title="Popover title">
+                    title="详细">
                     <a target="_blank" href="{% url 'detail' store.code %}">{{ store.name }}</a>
                     {% if store.is_date_new %}
                         <img src="{% static 'store_manage/new.png' %}" alt="new" height="20em"/>
                     {% endif %}
                 </td>
                 <td>{{ store.expected_installation_date|date:"Y/m/d" }}
-                    |{{ store.expected_installation_date|timeuntil }} </td>
+                    {% if store.get_away_date > 1 and  store.get_away_date < 10 %}
+                        <span class="badge" style="background-color: red;float: right">{{ store.get_away_date }}</span>
+                    {% elif store.get_away_date > 1 and  store.get_away_date < 90 %}
+                        <span class="badge" style="float: right">{{ store.get_away_date }}</span>
+                    {% endif %}
+                </td>
                 <td>{{ store.Opening_date|date:"Y/m/d" }}</td>
                 <td>{{ store.ip }}</td>
                 <td>
@@ -85,22 +90,13 @@
                     url: 'popoverHtml/'+this.dataset["code"],
                     dataType: 'html',
                     success: function (html) {
-                        {#console.log(html)#}
-                        {#$('.popover-content').empty();#}
-
-                        //Fill in content with new AJAX data
                         $('.popover-content').html(html);
-                        {#console.log($('.popover-content').html())#}
                     }
                 })
             }
         })
 
     })
-
-    function myFunction() {
-        return "Hello World!";
-    }
 </script>
 </body>
 </html>

@@ -1,11 +1,17 @@
 import uuid
 from datetime import date, datetime, timezone
+
+from MySQLdb.converters import NoneType
 from django.db import models
 
 
 class StoreInformation(models.Model):
     STATUS_CHOICES = (
         ('1', '筹备'),
+        ('5', '筹备-施工'),
+        ('6', '筹备-发货'),
+        ('7', '筹备-安装'),
+        ('8', '筹备-完工'),
         ('2', '正常'),
         ('3', '护肤'),
         ('4', '闭店'),
@@ -64,8 +70,10 @@ class StoreInformation(models.Model):
     @property
     def get_away_date(self):
         """返回安装时间距离现在的天数"""
+        if isinstance(self.expected_installation_date,NoneType):
+            return 999
         date_new = datetime.now(timezone.utc)
-        return (self.expected_installation_date - date_new).days
+        return (self.expected_installation_date - date_new.date()).days
 
     class Meta:
         # 末尾不加s
