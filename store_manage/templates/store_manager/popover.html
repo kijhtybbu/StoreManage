@@ -2,5 +2,7 @@
     {% for comment in list_comment %}
         <li class="list-group-item">
             {{ comment.content }} </li>
+    {% empty %}
+        <li class="list-group-item">这里还是空的。。</li>
     {% endfor %}
 </ul>
