@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from store_manage.views import StoreListView, StoreDetailView, PopoverHtmlView
+from store_manage.views import StoreListView, StoreDetailView, PopoverHtmlView, TopStar
 
 urlpatterns = [
     path('', StoreListView.as_view()),
@@ -24,5 +24,6 @@ urlpatterns = [
     path('store/', StoreListView.as_view(), name='store'),
     path('store/<slug>', StoreDetailView.as_view(), name='detail'),
     path('popoverHtml/<slug>', PopoverHtmlView.as_view(), name='Popover'),
+    path('top_star/<slug>', TopStar.as_view(), name='top_star'),
 
 ]

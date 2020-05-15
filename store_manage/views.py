@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -14,7 +14,7 @@ from store_manage.models import StoreInformation, StoreComment
 
 class StoreListView(ListView):
     template_name = 'store_manager/storelist.html'
-    queryset = StoreInformation.objects.order_by('-modified_date')
+    queryset = StoreInformation.objects.order_by('-top_star', '-modified_date')
 
 
 class StoreDetailView(View):
@@ -85,3 +85,22 @@ class PopoverHtmlView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['list_comment'] = StoreInformation.objects.get(code=kwargs['slug']).storecomment_set.all()[:3]
         return context
+
+
+class TopStar(View):
+
+    def get(self, request, *args, **kwargs):
+        slug = kwargs['slug']
+        store = StoreInformation.objects.get(code=slug)
+
+        if store.top_star == 1:
+            store.top_star = 2
+        else:
+            store.top_star = 1
+        store.save()
+
+        data = {
+            'code': slug,
+            'top': store.top_star
+        }
+        return JsonResponse(data)

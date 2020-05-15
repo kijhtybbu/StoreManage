@@ -16,7 +16,7 @@
     <table id="storelist" class="table table-striped table-hover table-bordered table-condensed">
         <thead>
         <tr>
-            <th scope="col" width="60em">状态</th>
+            <th scope="col" width="80em">状态</th>
             <th scope="col" width="80em">编号</th>
             <th scope="col">店名</th>
             <th scope="col" width="130em">安装日期</th>
@@ -41,6 +41,13 @@
                     {% elif store.status == "1" %}
                         <label style='color:orange'>筹备</label>
                     {% endif %}
+                    {% if store.top_star == 2 %}
+                        <span name="top" data-code="{{ store.code }}"
+                              class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
+                    {% else %}
+                         <span name="top" data-code="{{ store.code }}"
+                              class="glyphicon glyphicon-star" aria-hidden="true" style="color:wheat"></span>
+                    {% endif %}
                 </td>
                 <td><a href="{% url 'detail' store.code %}">{{ store.code }}</a></td>
                 <td data-toggle="popover" data-trigger="hover" data-code="{{ store.code }}"
@@ -51,9 +58,9 @@
                     {% endif %}
                 </td>
                 <td>{{ store.expected_installation_date|date:"Y/m/d" }}
-                    {% if store.get_away_date > 1 and  store.get_away_date < 10 %}
+                    {% if store.get_away_date > -1 and  store.get_away_date < 10 %}
                         <span class="badge" style="background-color: red;float: right">{{ store.get_away_date }}</span>
-                    {% elif store.get_away_date > 1 and  store.get_away_date < 90 %}
+                    {% elif store.get_away_date > -1 and  store.get_away_date < 90 %}
                         <span class="badge" style="float: right">{{ store.get_away_date }}</span>
                     {% endif %}
                 </td>
@@ -79,24 +86,38 @@
     $(function () {
         $('[data-toggle="popover"]').popover({
             html: true,
-            placement: 'auto right',
+            placement: 'right',
             container: 'body',
-            template: '<div class="popover" style="max-width: 450px">' +
-                '<div class="arrow"></div><div class="popover-inner">' +
-                '<h3 class="popover-title"></h3><div class="popover-content">' +
+            template: '<div class="popover" style="max-width: 500px">' +
+                '<div class="popover-inner">' +
+                '<h3 class="popover-title" ></h3><div class="popover-content">' +
                 '<p></p></div></div></div>',
             content: function () {
                 $.ajax({
-                    url: 'popoverHtml/'+this.dataset["code"],
+                    url: '/popoverHtml/' + this.dataset["code"],
                     dataType: 'html',
                     success: function (html) {
-                        $('.popover-content').html(html);
+                        $('.popover-content').html(html)
+                        $('th[aria-describedby]').popover('update') //4.1
                     }
-                })
-            }
-        })
+                });
 
-    })
+            }
+        });
+        $("[name='top']").click(function (e) {
+            console.log(e.target);
+            $.getJSON("/top_star/" + this.dataset["code"], function (json) {
+                if (json.top == 2) {
+                    $(e.target).css({"color": "red"})
+                } else {
+                    $(e.target).css({"color": "wheat"})
+                }
+                console.log(json.code);
+            });
+
+        });
+    });
+
 </script>
 </body>
 </html>

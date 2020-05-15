@@ -61,6 +61,7 @@ class StoreInformation(models.Model):
     ps = models.TextField(max_length=300, null=True, blank=True, verbose_name="备注")
     # 修改时间
     modified_date = models.DateTimeField(verbose_name="修改日期", auto_now=True)
+    top_star = models.PositiveSmallIntegerField(null=True, blank=True, verbose_name="星标")
 
     @property
     def is_date_new(self):
