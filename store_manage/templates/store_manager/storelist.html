@@ -18,9 +18,9 @@
         <tr>
             <th scope="col" width="80em">状态</th>
             <th scope="col" width="80em">编号</th>
-            <th scope="col">店名</th>
+            <th scope="col" width="200em">店名</th>
             <th scope="col" width="130em">安装日期</th>
-            <th scope="col" width="120em">开业日期</th>
+            <th scope="col" width="120em">闭店日期</th>
             <th scope="col" width="130em">网段</th>
             <th scope="col" width="100em">客用wifi</th>
             <th scope="col">工程部</th>
@@ -41,18 +41,20 @@
                     {% elif store.status == "1" %}
                         <label style='color:orange'>筹备</label>
                     {% endif %}
-                    {% if store.top_star == 2 %}
-                        <span name="top" data-code="{{ store.code }}"
-                              class="glyphicon glyphicon-star" aria-hidden="true" style="color:red"></span>
-                    {% else %}
-                         <span name="top" data-code="{{ store.code }}"
-                              class="glyphicon glyphicon-star" aria-hidden="true" style="color:wheat"></span>
-                    {% endif %}
+                    <span name="top" data-code="{{ store.code }}"
+                          class="glyphicon glyphicon-star" aria-hidden="true"
+                            {% if store.top_star == 2 %}
+                          style="color:#ff0000"
+                            {% else %}
+                          style="color:wheat"
+                            {% endif %}>
+                    </span>
+
                 </td>
                 <td><a href="{% url 'detail' store.code %}">{{ store.code }}</a></td>
                 <td data-toggle="popover" data-trigger="hover" data-code="{{ store.code }}"
                     title="详细">
-                    <a target="_blank" href="{% url 'detail' store.code %}">{{ store.name }}</a>
+                    {{ store.name }}
                     {% if store.is_date_new %}
                         <img src="{% static 'store_manage/new.png' %}" alt="new" height="20em"/>
                     {% endif %}
@@ -64,7 +66,7 @@
                         <span class="badge" style="float: right">{{ store.get_away_date }}</span>
                     {% endif %}
                 </td>
-                <td>{{ store.Opening_date|date:"Y/m/d" }}</td>
+                <td>{{ store.closed_date|date:"Y/m/d" }}</td>
                 <td>{{ store.ip }}</td>
                 <td>
                     {% if store.guest_wifi == 1 %}
@@ -98,7 +100,7 @@
                     dataType: 'html',
                     success: function (html) {
                         $('.popover-content').html(html)
-                        $('th[aria-describedby]').popover('update') //4.1
+                        {#$('th[aria-describedby]').popover('update') //4.1#}
                     }
                 });
 
@@ -107,7 +109,7 @@
         $("[name='top']").click(function (e) {
             console.log(e.target);
             $.getJSON("/top_star/" + this.dataset["code"], function (json) {
-                if (json.top == 2) {
+                if (json.top === 2) {
                     $(e.target).css({"color": "red"})
                 } else {
                     $(e.target).css({"color": "wheat"})

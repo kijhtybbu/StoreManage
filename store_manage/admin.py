@@ -23,7 +23,7 @@ class StoreInformationAdmin(admin.ModelAdmin):
               ('ap', 'guest_wifi'),
               'status',
               'ps')
-    list_display = ('code', 'name', 'ip', 'engineering_head', 'status', 'Opening_date', 'equipment_arrival_date',)
+    list_display = ('code', 'name', 'ip', 'engineering_head', 'status', 'Opening_date', 'closed_date',)
     date_hierarchy = 'Opening_date'
     empty_value_display = '(None)'
     # ordering设置默认排序字段，负号表示降序排序
@@ -31,7 +31,7 @@ class StoreInformationAdmin(admin.ModelAdmin):
 
     # list_editable 设置默认可编辑字段
     # list_editable = ['machine_room_id', 'temperature']
-    list_filter = ('status',)  # 过滤器
+    list_filter = ('status', 'expected_installation_date', 'closed_date')  # 过滤器
     search_fields = ('code', 'name')  # 搜索字段
     inlines = [StoreCommentInline]
 
