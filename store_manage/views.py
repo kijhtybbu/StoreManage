@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db.models import Q
 from django.http import HttpResponseForbidden, JsonResponse
 from django.shortcuts import render
@@ -104,3 +106,18 @@ class TopStar(View):
             'top': store.top_star
         }
         return JsonResponse(data)
+
+
+class OpenAndCloseStores(TemplateView):
+    template_name = 'store_manager/open_close_stores.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        last_month = datetime.now().month-1;
+
+        context['open_list'] = StoreInformation.objects.filter(expected_installation_date__month=last_month)\
+            .order_by('-top_star', '-modified_date')
+        context['close_list'] = StoreInformation.objects.filter(closed_date__month=last_month)\
+            .order_by('-top_star', '-modified_date')
+        return context

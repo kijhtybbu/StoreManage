@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from store_manage.views import StoreListView, StoreDetailView, PopoverHtmlView, TopStar
+from store_manage.views import StoreListView, StoreDetailView, PopoverHtmlView, TopStar,OpenAndCloseStores
 
 urlpatterns = [
     path('', StoreListView.as_view()),
     path('admin/', admin.site.urls),
     path('store/', StoreListView.as_view(), name='store'),
     path('store/<slug>', StoreDetailView.as_view(), name='detail'),
+    path('open_close_stores', OpenAndCloseStores.as_view(), name='oc'),
     path('popoverHtml/<slug>', PopoverHtmlView.as_view(), name='Popover'),
     path('top_star/<slug>', TopStar.as_view(), name='top_star'),
-
 ]
