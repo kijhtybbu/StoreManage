@@ -1,14 +1,12 @@
-from datetime import datetime
+from datetime import date
 
-from django.db.models import Q
-from django.http import HttpResponseForbidden, JsonResponse
-from django.shortcuts import render
+from dateutil.relativedelta import *
+from django.http import JsonResponse
 
 # Create your views here.
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, FormView, TemplateView
-from django.views.generic.detail import SingleObjectMixin
 
 from store_manage.forms import CommentForm
 from store_manage.models import StoreInformation, StoreComment
@@ -114,10 +112,12 @@ class OpenAndCloseStores(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        last_month = datetime.now().month-1;
+        last_date = date.today() + relativedelta(months=-1)
 
-        context['open_list'] = StoreInformation.objects.filter(expected_installation_date__month=last_month)\
+        context['open_list'] = StoreInformation.objects.filter(expected_installation_date__month=last_date.month,
+                                                               expected_installation_date__year=last_date.year) \
             .order_by('-top_star', '-modified_date')
-        context['close_list'] = StoreInformation.objects.filter(closed_date__month=last_month)\
+        context['close_list'] = StoreInformation.objects.filter(closed_date__month=last_date.month,
+                                                                closed_date__year=last_date.year) \
             .order_by('-top_star', '-modified_date')
         return context
