@@ -35,6 +35,9 @@ class StoreInformationAdmin(admin.ModelAdmin):
     search_fields = ('code', 'name')  # 搜索字段
     inlines = [StoreCommentInline]
 
+    def get_changeform_initial_data(self, request):
+        return {'ip': '12.12.12.12'}
+
 
 admin.site.site_header = '店铺管理'
 admin.site.site_title = '店铺管理系统'
